@@ -19,10 +19,11 @@ extern "C"
 
 #include "rcl/expand_topic_name.h"
 
-#include <stdio.h>
+#include <stdbool.h>
 #include <string.h>
 
 #include "./common.h"
+#include "rcl/allocator.h"
 #include "rcl/error_handling.h"
 #include "rcl/types.h"
 #include "rcl/validate_topic_name.h"
@@ -30,8 +31,9 @@ extern "C"
 #include "rcutils/format_string.h"
 #include "rcutils/repl_str.h"
 #include "rcutils/strdup.h"
+#include "rcutils/types/string_map.h"
 #include "rmw/error_handling.h"
-#include "rmw/types.h"
+#include "rmw/ret_types.h"
 #include "rmw/validate_namespace.h"
 #include "rmw/validate_node_name.h"
 
@@ -134,10 +136,10 @@ rcl_expand_topic_name(
     //
     // These assumptions are taken because this is checked in the validation function.
     const char * current_output = (local_output) ? local_output : input_topic_name;
-    char * next_opening_brace = NULL;
+    const char * next_opening_brace = NULL;
     // current_output may be replaced on each loop if a substitution is made
     while ((next_opening_brace = strchr(current_output, '{')) != NULL) {
-      char * next_closing_brace = strchr(current_output, '}');
+      const char * next_closing_brace = strchr(current_output, '}');
       // conclusion based on above assumptions: next_closing_brace - next_opening_brace > 1
       size_t substitution_substr_len = next_closing_brace - next_opening_brace + 1;
       // figure out what the replacement is for this substitution
