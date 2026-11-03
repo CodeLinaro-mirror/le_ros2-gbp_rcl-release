@@ -28,6 +28,9 @@
 #include "test_msgs/msg/basic_types.h"
 #include "test_msgs/srv/basic_types.h"
 
+#include "rmw/qos_profiles.h"
+#include "rmw/rmw.h"
+
 /**
  * Parameterized test.
  * The first param are the NodeOptions used to create the nodes.
@@ -326,9 +329,7 @@ get_parameters(bool for_publisher)
   });
 
   std::string rmw_implementation_str = std::string(rmw_get_implementation_identifier());
-  if (rmw_implementation_str == "rmw_fastrtps_cpp" ||
-    rmw_implementation_str == "rmw_fastrtps_dynamic_cpp")
-  {
+  if (rmw_implementation_str == "rmw_fastrtps_cpp") {
     /*
      * Test with non-default settings.
      */
