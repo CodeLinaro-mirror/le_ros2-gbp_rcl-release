@@ -2,13 +2,26 @@
 Changelog for package rcl_yaml_param_parser
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-10.4.5 (2026-08-31)
+10.5.3 (2026-11-03)
 -------------------
-* rcl_yaml_param_parser: Fix build on MacOS (`#1327 <https://github.com/ros2/rcl/issues/1327>`_) (`#1329 <https://github.com/ros2/rcl/issues/1329>`_)
-* Use pthread_once in rcl_yaml_param_parser on Apple (`#1325 <https://github.com/ros2/rcl/issues/1325>`_) (`#1328 <https://github.com/ros2/rcl/issues/1328>`_)
-* Contributors: mergify[bot]
+* Remove custom ament_cppcheck usage. (`#1355 <https://github.com/ros2/rcl//issues/1355>`_)
+* Include what you use (`#1334 <https://github.com/ros2/rcl//issues/1334>`_)
+* Switch rcl_yaml_param_parser from ament_cmake_ros to just ament_cmake (`#1348 <https://github.com/ros2/rcl//issues/1348>`_)
+* Delete old-style ament_export_include_directories() and ament_export_libraries() calls (`#1342 <https://github.com/ros2/rcl//issues/1342>`_)
+* Use the SPDX identifier Apache-2.0 in package.xml license tags (`#1339 <https://github.com/ros2/rcl//issues/1339>`_)
+* Contributors: Alejandro Hernández Cordero, Chris Lalancette, Christophe Bedard, Francois Gonothi Toure, Michael Carroll
 
-10.4.4 (2026-04-30)
+10.5.2 (2026-08-31)
+-------------------
+* rcl_yaml_param_parser: Fix build on MacOS (`#1327 <https://github.com/ros2/rcl/issues/1327>`_)
+* Use pthread_once in rcl_yaml_param_parser on Apple (`#1325 <https://github.com/ros2/rcl/issues/1325>`_)
+* use C++ 20 in default. (`#1322 <https://github.com/ros2/rcl/issues/1322>`_)
+* Contributors: Michal Sojka, Tobias Fischer, Tomoya Fujita
+
+10.5.1 (2026-05-22)
+-------------------
+
+10.5.0 (2026-05-07)
 -------------------
 
 10.4.3 (2026-04-14)

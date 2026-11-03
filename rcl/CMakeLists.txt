@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.20)
 project(rcl)
 
 find_package(ament_cmake_ros REQUIRED)
+find_package(ament_cmake_ros_core REQUIRED)
 find_package(ament_cmake_gen_version_h REQUIRED)
 
 find_package(libyaml_vendor REQUIRED)
@@ -24,17 +25,6 @@ include(cmake/rcl_set_symbol_visibility_hidden.cmake)
 include(cmake/get_default_rcl_logging_implementation.cmake)
 get_default_rcl_logging_implementation(RCL_LOGGING_IMPL)
 message(STATUS "RCL_LOGGING_IMPLEMENTATION: ${RCL_LOGGING_IMPL}")
-
-# Default to C11
-if(NOT CMAKE_C_STANDARD)
-  set(CMAKE_C_STANDARD 11)
-endif()
-
-# Default to C++17
-if(NOT CMAKE_CXX_STANDARD)
-  set(CMAKE_CXX_STANDARD 17)
-  set(CMAKE_CXX_STANDARD_REQUIRED ON)
-endif()
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -87,6 +77,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
   "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>"
   "$<INSTALL_INTERFACE:include/${PROJECT_NAME}>")
 target_link_libraries(${PROJECT_NAME} PUBLIC
+  ament_cmake_ros_core::ament_ros_defaults
   # TODO(clalancette): rcl_interfaces should be PRIVATE, but downstream depends on it for now
   rcl_interfaces::rcl_interfaces
   # TODO(clalancette): rcl_logging_interface should be PRIVATE, but downstream depends on it for now
@@ -145,13 +136,11 @@ install(
 # This is overwritten each loop, but which one it points to doesn't really matter.
 set(rcl_lib_dir "$<TARGET_FILE_DIR:${PROJECT_NAME}>")
 
-# Export old-style CMake variables
-ament_export_include_directories("include/${PROJECT_NAME}")
-ament_export_libraries(${PROJECT_NAME})
 # Export modern CMake targets
 ament_export_targets(${PROJECT_NAME})
 
 ament_export_dependencies(ament_cmake)
+ament_export_dependencies(ament_cmake_ros_core)
 # TODO(clalancette): rcl_interfaces shouldn't be exported, but downstream depends on it for now
 ament_export_dependencies(rcl_interfaces)
 # TODO(clalancette): rcl_logging_interface shouldn't be exported, but downstream depends on it for now

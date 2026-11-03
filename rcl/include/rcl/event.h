@@ -22,6 +22,8 @@ extern "C"
 {
 #endif
 
+#include <stdbool.h>
+
 #include <rmw/event.h>
 
 #include "rcl/client.h"
@@ -30,6 +32,7 @@ extern "C"
 #include "rcl/publisher.h"
 #include "rcl/service.h"
 #include "rcl/subscription.h"
+#include "rcl/types.h"
 #include "rcl/visibility_control.h"
 
 /// Enumeration of all of the publisher events that may fire.
@@ -202,6 +205,54 @@ rcl_event_get_rmw_handle(const rcl_event_t * event);
 RCL_PUBLIC
 bool
 rcl_event_is_valid(const rcl_event_t * event);
+
+/// Check if a publisher event type is supported by the active RMW implementation.
+/**
+ * This API allows application code to introspect at runtime whether a
+ * particular publisher event type is supported by the currently loaded
+ * RMW implementation, enabling portable code that adapts gracefully
+ * when switching between RMW implementations.
+ *
+ * <hr>
+ * Attribute          | Adherence
+ * ------------------ | -------------
+ * Allocates Memory   | No
+ * Thread-Safe        | Yes
+ * Uses Atomics       | No
+ * Lock-Free          | Yes
+ *
+ * \param[in] event_type the publisher event type to check
+ * \return `true` if the event type is supported, `false` otherwise
+ */
+RCL_PUBLIC
+RCL_WARN_UNUSED
+bool
+rcl_publisher_event_type_is_supported(
+  const rcl_publisher_event_type_t event_type);
+
+/// Check if a subscription event type is supported by the active RMW implementation.
+/**
+ * This API allows application code to introspect at runtime whether a
+ * particular subscription event type is supported by the currently loaded
+ * RMW implementation, enabling portable code that adapts gracefully
+ * when switching between RMW implementations.
+ *
+ * <hr>
+ * Attribute          | Adherence
+ * ------------------ | -------------
+ * Allocates Memory   | No
+ * Thread-Safe        | Yes
+ * Uses Atomics       | No
+ * Lock-Free          | Yes
+ *
+ * \param[in] event_type the subscription event type to check
+ * \return `true` if the event type is supported, `false` otherwise
+ */
+RCL_PUBLIC
+RCL_WARN_UNUSED
+bool
+rcl_subscription_event_type_is_supported(
+  const rcl_subscription_event_type_t event_type);
 
 /// Set the callback function for the event.
 /**
